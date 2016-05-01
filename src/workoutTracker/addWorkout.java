@@ -3,11 +3,16 @@ package workoutTracker;
 //GUI
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -26,6 +31,8 @@ import java.util.List;
 
 
 public class addWorkout {
+	private JTextField tfield;
+	private int count = 0;
 	
 	public addWorkout() {
 		// TODO Auto-generated constructor stub
@@ -34,8 +41,10 @@ public class addWorkout {
 		addWG.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addWG.setTitle("New Workout");
 		addWG.setSize(300, 500);
+		addWG.setLayout(new BoxLayout(addWG.getContentPane(), BoxLayout.Y_AXIS));
 		
 		JButton saveWork = new JButton("Save Workout");
+		JButton addExer = new JButton("Add Exercise");
 		saveWork.addActionListener(new ActionListener()
 		{
 			@Override
@@ -44,7 +53,22 @@ public class addWorkout {
 				addToFile();
 			}
 		});
-		addWG.add(saveWork, BorderLayout.SOUTH);
+		
+		addExer.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent event)
+			{
+				tfield = new JTextField();
+				tfield.setName("tField"+count);
+				count++;
+				addWG.add(tfield);
+				addWG.revalidate();
+				addWG.repaint();
+			}
+		});
+		addWG.add(addExer);
+		addWG.add(saveWork);
 		addWG.setVisible(true);
 	}
 	
