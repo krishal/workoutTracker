@@ -3,6 +3,7 @@ package workoutTracker;
 //GUI
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.BorderFactory;
@@ -41,25 +42,32 @@ public class addWorkout {
 	
 	private JTextField tName, tRep, tSet;
 	private int count = 0;
-	private Dimension maximumSize;
+	private Dimension maximumSize,preferredDim;
 	
 	public addWorkout() {
 		// TODO Auto-generated constructor stub
 		JFrame addWG = new JFrame();
 		JPanel buttonP = new JPanel();
+		
 		JPanel textFields = new JPanel();
+		JScrollPane textScroll = new JScrollPane(textFields);
+		textFields.setAutoscrolls(true);
 		
 		addWG.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addWG.setTitle("New Workout");
 		addWG.setSize(300, 500);
 		addWG.setLayout(new BorderLayout());
+		
 		buttonP.setLayout(new BoxLayout(buttonP, BoxLayout.Y_AXIS));
 		textFields.setLayout(new BoxLayout(textFields, BoxLayout.Y_AXIS));
-		
-		maximumSize = new Dimension(250,60);
 		textFields.setMaximumSize(maximumSize);
+		
 		JButton saveWork = new JButton("Save Workout");
 		JButton addExer = new JButton("Add Exercise");
+		
+//		preferredDim = new Dimension(250,addWG.getHeight()-100);
+//		textScroll.setPreferredSize(preferredDim);
+		
 		saveWork.addActionListener(new ActionListener()
 		{
 			@Override
@@ -86,19 +94,30 @@ public class addWorkout {
 				tSet.setSize(textFields.getWidth(), 15);
 				tSet.setName("tSet"+count);
 				count++;
-				maximumSize = new Dimension(250,60*count);
-				textFields.setMaximumSize(maximumSize);
+				if(count<6){
+					maximumSize = new Dimension(250,60*count);
+					textScroll.setPreferredSize(maximumSize);
+					textFields.setMaximumSize(maximumSize);
+				}
+				else{
+					maximumSize = new Dimension(250,addWG.getHeight()-100);
+					textScroll.setPreferredSize(maximumSize);
+					textFields.setMaximumSize(maximumSize);
+				}
 				textFields.add(tSet);
 				textFields.revalidate();
 				textFields.repaint();
+				textScroll.revalidate();
+				textScroll.repaint();
+				
 			}
 		});
 		addExer.setAlignmentX(Component.CENTER_ALIGNMENT);
 		saveWork.setAlignmentX(Component.CENTER_ALIGNMENT);
 		buttonP.add(addExer);
 		buttonP.add(saveWork);
-		
-		addWG.add(textFields, BorderLayout.NORTH);
+
+		addWG.add(textScroll, BorderLayout.NORTH);
 		addWG.add(buttonP, BorderLayout.SOUTH);
 		addWG.setVisible(true);
 	}
