@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -31,18 +33,31 @@ import java.util.List;
 
 
 public class addWorkout {
-	private JTextField tfield;
+	//For testing purposes 
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		new addWorkout();
+	}
+	
+	private JTextField tName, tRep, tSet;
 	private int count = 0;
+	private Dimension maximumSize;
 	
 	public addWorkout() {
 		// TODO Auto-generated constructor stub
 		JFrame addWG = new JFrame();
+		JPanel buttonP = new JPanel();
+		JPanel textFields = new JPanel();
 		
 		addWG.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addWG.setTitle("New Workout");
 		addWG.setSize(300, 500);
-		addWG.setLayout(new BoxLayout(addWG.getContentPane(), BoxLayout.Y_AXIS));
+		addWG.setLayout(new BorderLayout());
+		buttonP.setLayout(new BoxLayout(buttonP, BoxLayout.Y_AXIS));
+		textFields.setLayout(new BoxLayout(textFields, BoxLayout.Y_AXIS));
 		
+		maximumSize = new Dimension(250,60);
+		textFields.setMaximumSize(maximumSize);
 		JButton saveWork = new JButton("Save Workout");
 		JButton addExer = new JButton("Add Exercise");
 		saveWork.addActionListener(new ActionListener()
@@ -59,16 +74,32 @@ public class addWorkout {
 			@Override
 			public void actionPerformed(ActionEvent event)
 			{
-				tfield = new JTextField();
-				tfield.setName("tField"+count);
+				tName = new JTextField();
+				tName.setSize(textFields.getWidth(), 3);
+				tName.setName("tName"+count);
+				textFields.add(tName);
+				tRep = new JTextField();
+				tRep.setSize(textFields.getWidth(), 10);
+				tRep.setName("tRep"+count);
+				textFields.add(tRep);
+				tSet = new JTextField();
+				tSet.setSize(textFields.getWidth(), 15);
+				tSet.setName("tSet"+count);
 				count++;
-				addWG.add(tfield);
-				addWG.revalidate();
-				addWG.repaint();
+				maximumSize = new Dimension(250,60*count);
+				textFields.setMaximumSize(maximumSize);
+				textFields.add(tSet);
+				textFields.revalidate();
+				textFields.repaint();
 			}
 		});
-		addWG.add(addExer);
-		addWG.add(saveWork);
+		addExer.setAlignmentX(Component.CENTER_ALIGNMENT);
+		saveWork.setAlignmentX(Component.CENTER_ALIGNMENT);
+		buttonP.add(addExer);
+		buttonP.add(saveWork);
+		
+		addWG.add(textFields, BorderLayout.NORTH);
+		addWG.add(buttonP, BorderLayout.SOUTH);
 		addWG.setVisible(true);
 	}
 	
