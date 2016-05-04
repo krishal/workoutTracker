@@ -40,18 +40,18 @@ public class addWorkout {
 		new addWorkout();
 	}
 	
-	private JTextField tName, tRep, tSet;
-	private int count = 0;
-	private Dimension maximumSize,preferredDim;
 	
 	public addWorkout() {
 		// TODO Auto-generated constructor stub
 		JFrame addWG = new JFrame();
 		JPanel buttonP = new JPanel();
-		
 		JPanel textFields = new JPanel();
-		JScrollPane textScroll = new JScrollPane(textFields);
-		textFields.setAutoscrolls(true);
+		JPanel addExercise = new JPanel();
+		JTextField tName, tRep, tSet, tAdded;
+		tName = new JTextField();
+		tRep = new JTextField();
+		tSet = new JTextField();
+		tAdded = new JTextField();
 		
 		addWG.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addWG.setTitle("New Workout");
@@ -59,14 +59,21 @@ public class addWorkout {
 		addWG.setLayout(new BorderLayout());
 		
 		buttonP.setLayout(new BoxLayout(buttonP, BoxLayout.Y_AXIS));
-		textFields.setLayout(new BoxLayout(textFields, BoxLayout.Y_AXIS));
-		textFields.setMaximumSize(maximumSize);
+		textFields.setLayout(new BorderLayout());
+		addExercise.setLayout(new FlowLayout());
+		tAdded.setPreferredSize(new Dimension(300,300));
+		tAdded.setEditable(false);
+		textFields.add(tAdded,BorderLayout.CENTER);
+		addExercise.add(tName);
+		addExercise.add(tSet);
+		addExercise.add(tRep);
+		tName.setPreferredSize(new Dimension(150,20));
+		tSet.setPreferredSize(new Dimension(50,20));
+		tRep.setPreferredSize(new Dimension(50,20));
+		textFields.add(addExercise, BorderLayout.SOUTH);
 		
 		JButton saveWork = new JButton("Save Workout");
 		JButton addExer = new JButton("Add Exercise");
-		
-//		preferredDim = new Dimension(250,addWG.getHeight()-100);
-//		textScroll.setPreferredSize(preferredDim);
 		
 		saveWork.addActionListener(new ActionListener()
 		{
@@ -82,42 +89,16 @@ public class addWorkout {
 			@Override
 			public void actionPerformed(ActionEvent event)
 			{
-				tName = new JTextField();
-				tName.setSize(textFields.getWidth(), 3);
-				tName.setName("tName"+count);
-				textFields.add(tName);
-				tRep = new JTextField();
-				tRep.setSize(textFields.getWidth(), 10);
-				tRep.setName("tRep"+count);
-				textFields.add(tRep);
-				tSet = new JTextField();
-				tSet.setSize(textFields.getWidth(), 15);
-				tSet.setName("tSet"+count);
-				count++;
-				if(count<6){
-					maximumSize = new Dimension(250,60*count);
-					textScroll.setPreferredSize(maximumSize);
-					textFields.setMaximumSize(maximumSize);
-				}
-				else{
-					maximumSize = new Dimension(250,addWG.getHeight()-100);
-					textScroll.setPreferredSize(maximumSize);
-					textFields.setMaximumSize(maximumSize);
-				}
-				textFields.add(tSet);
-				textFields.revalidate();
-				textFields.repaint();
-				textScroll.revalidate();
-				textScroll.repaint();
 				
 			}
 		});
+		
 		addExer.setAlignmentX(Component.CENTER_ALIGNMENT);
 		saveWork.setAlignmentX(Component.CENTER_ALIGNMENT);
 		buttonP.add(addExer);
 		buttonP.add(saveWork);
 
-		addWG.add(textScroll, BorderLayout.NORTH);
+		addWG.add(textFields, BorderLayout.NORTH);
 		addWG.add(buttonP, BorderLayout.SOUTH);
 		addWG.setVisible(true);
 	}
