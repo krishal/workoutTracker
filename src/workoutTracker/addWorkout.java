@@ -47,22 +47,24 @@ public class addWorkout {
 		JPanel buttonP = new JPanel();
 		JPanel textFields = new JPanel();
 		JPanel addExercise = new JPanel();
-		JTextField tName, tRep, tSet, tAdded;
+		JTextField tName, tRep, tSet;
+		String[] data = {};
+		JList<String> tAdded = new JList<String>(data);
 		tName = new JTextField();
 		tRep = new JTextField();
 		tSet = new JTextField();
-		tAdded = new JTextField();
 		
 		addWG.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addWG.setTitle("New Workout");
 		addWG.setSize(300, 500);
+		addWG.setMinimumSize(new Dimension(300,500));
 		addWG.setLayout(new BorderLayout());
 		
 		buttonP.setLayout(new BoxLayout(buttonP, BoxLayout.Y_AXIS));
 		textFields.setLayout(new BorderLayout());
 		addExercise.setLayout(new FlowLayout());
 		tAdded.setPreferredSize(new Dimension(300,300));
-		tAdded.setEditable(false);
+		
 		textFields.add(tAdded,BorderLayout.CENTER);
 		addExercise.add(tName);
 		addExercise.add(tSet);
@@ -70,11 +72,11 @@ public class addWorkout {
 		tName.setPreferredSize(new Dimension(150,20));
 		tSet.setPreferredSize(new Dimension(50,20));
 		tRep.setPreferredSize(new Dimension(50,20));
-		textFields.add(addExercise, BorderLayout.SOUTH);
+		buttonP.add(addExercise, BorderLayout.SOUTH);
 		
 		JButton saveWork = new JButton("Save Workout");
 		JButton addExer = new JButton("Add Exercise");
-		
+		JButton deleteSel = new JButton("Delete Selected");
 		saveWork.addActionListener(new ActionListener()
 		{
 			@Override
@@ -93,9 +95,20 @@ public class addWorkout {
 			}
 		});
 		
+		deleteSel.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent event)
+			{
+				
+			}
+		});
+		
 		addExer.setAlignmentX(Component.CENTER_ALIGNMENT);
+		deleteSel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		saveWork.setAlignmentX(Component.CENTER_ALIGNMENT);
 		buttonP.add(addExer);
+		buttonP.add(deleteSel);
 		buttonP.add(saveWork);
 
 		addWG.add(textFields, BorderLayout.NORTH);
